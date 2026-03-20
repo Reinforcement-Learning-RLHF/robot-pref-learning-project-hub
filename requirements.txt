@@ -1,4 +1,5 @@
 google-genai
+langchain-google-genai
 dotenv
 torch
 torchvision
