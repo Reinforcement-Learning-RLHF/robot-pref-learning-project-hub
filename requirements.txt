@@ -16,3 +16,6 @@ pillow
 bitsandbytes
 av
 torchcodec
+opencv-python
+ruptures
+tqdm

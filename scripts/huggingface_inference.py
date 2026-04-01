@@ -18,7 +18,19 @@ def main():
                         help="cpu or cuda")
     parser.add_argument("--dtype", type=str, default="bfloat16",
                         help="dtype to load model parameters in")
+    parser.add_argument("--seed", type=int, default=None,
+                        help="seed for deterministic generation")
     args = parser.parse_args()
+
+    if args.seed is not None:
+        import numpy as np
+        import random
+        torch.manual_seed(args.seed)
+        torch.cuda.manual_seed_all(args.seed)
+        np.random.seed(args.seed)
+        random.seed(args.seed)
+        torch.backends.cudnn.deterministic = True
+        torch.backends.cudnn.benchmark = False
 
     if args.family == "qwen3":
         from transformers import Qwen3VLForConditionalGeneration as VLM
