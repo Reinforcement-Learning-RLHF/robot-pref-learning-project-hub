@@ -19,3 +19,4 @@ torchcodec
 opencv-python
 ruptures
 tqdm
+h5py
