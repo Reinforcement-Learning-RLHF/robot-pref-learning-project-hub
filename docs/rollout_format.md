@@ -10,10 +10,12 @@ data/
 └── rollouts/
     ├── <rollout_id>/
     │   ├── metadata.json 
-    │   └── <video_filename>  # e.g. rollout_agentview.mp4
+    │   ├── <video_filename>  # e.g. rollout_agentview.mp4
+    │   └── any other data  # e.g. arm action at each timestep in h5py or any other data form
     └── <rollout_id>/
         ├── metadata.json
-        └── <video_filename>
+        ├── <video_filename>
+        └── any other data 
 ```
 
 ---
