@@ -28,9 +28,6 @@ keyframes/
 demos/
 models/
 
-# Claude Code project settings (local only)
-.claude/
-
 # Generated plots (commit results_table.csv but not figures)
 results/figures/*
 !results/figures/.gitkeep
