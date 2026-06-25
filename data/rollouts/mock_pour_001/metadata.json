@@ -1,0 +1,11 @@
+{
+  "rollout_id": "mock_pour_001",
+  "task_name": "pour",
+  "task_goal": "Pour contents.",
+  "video_filename": "rollout_agentview.mp4",
+  "video_path": "data/rollouts/mock_pour_001/rollout_agentview.mp4",
+  "simulator": "robosuite",
+  "success_label": true,
+  "timestamp": "2026-05-30T14:00:00Z",
+  "additional_notes": "Perfect pour"
+}

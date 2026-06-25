@@ -1,0 +1,10 @@
+{
+  "rollout_id": "mock_lift_002",
+  "task_name": "lift",
+  "task_goal": "Lift the block.",
+  "video_filename": "rollout_wristview.mp4",
+  "video_path": "data/rollouts/mock_lift_002/rollout_wristview.mp4",
+  "simulator": "isaac",
+  "success_label": false,
+  "timestamp": "2026-05-30T15:00:00Z"
+}
