@@ -31,3 +31,14 @@ models/
 # Generated plots (commit results_table.csv but not figures)
 results/figures/*
 !results/figures/.gitkeep
+
+# Large video data -- regenerate with scripts/download_lerobot_dataset.py
+data/rollouts/so101_*/
+data/lerobot_cache/
+data/test/
+
+# Mock rollouts -- regenerate with scripts/generate_mock_rollouts.py
+data/rollouts/mock_*/
+
+# Claude Code internal settings
+.claude/

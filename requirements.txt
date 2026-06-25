@@ -1,10 +1,10 @@
-# VLM inference — Gemini
+# VLM inference - Gemini
 google-genai
 langchain-google-genai
 langchain-core
 python-dotenv
 
-# VLM inference — HuggingFace (local)
+# VLM inference - HuggingFace (local)
 torch
 torchvision
 git+https://github.com/huggingface/transformers.git
@@ -14,10 +14,11 @@ sentencepiece
 bitsandbytes
 pydantic
 
-# Reward model training (TODO)
+# HuggingFace data (LeRobot dataset download)
 datasets
 huggingface-hub
 hf_transfer
+pandas
 
 # Video and data utilities
 opencv-python
