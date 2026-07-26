@@ -197,7 +197,8 @@ def render_video_col(col, label: str, rollout_id: str, registry: pd.DataFrame) -
             else:
                 r = rows.iloc[0]
                 video_path = ROOT / r["video_path"]
-                video_url = r.get("video_url") or None
+                _raw_url = r.get("video_url")
+                video_url = str(_raw_url).strip() if _raw_url and str(_raw_url) not in ("nan", "", "None") else None
                 data = load_video_bytes(str(video_path), video_url)
                 if data:
                     st.video(data, format="video/mp4")
