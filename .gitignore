@@ -33,13 +33,15 @@ models/
 results/figures/*
 !results/figures/.gitkeep
 
-# Large video data -- regenerate with scripts/download_lerobot_dataset.py
-data/rollouts/so101_*/
-data/lerobot_cache/
-data/test/
+# Large data directories -- regenerate locally, too large for git
+data/rollouts/
+data/hdf5_datasets/
+data/hf_so101/
+data/hf_cache/
 
-# Mock rollouts -- regenerate with scripts/generate_mock_rollouts.py
-data/rollouts/mock_*/
+# Keep registry and preferences (small CSVs, source of truth)
+!data/rollout_registry.csv
+!data/preferences/
 
 # Claude Code internal settings
 .claude/
