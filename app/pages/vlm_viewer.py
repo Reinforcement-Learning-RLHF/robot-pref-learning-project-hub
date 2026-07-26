@@ -321,10 +321,13 @@ def tab_live(registry: pd.DataFrame, api_key: str, model: str) -> None:
 
         def _resolve_video(row, label: str) -> str | None:
             """Return a local path to the video, downloading from HF if needed."""
-            local = ROOT / row["video_path"]
-            if local.exists():
-                return str(local)
-            url = row.get("video_url", "")
+            _vp = row.get("video_path", "")
+            if _vp and str(_vp) not in ("nan", "", "None"):
+                local = ROOT / str(_vp)
+                if local.exists():
+                    return str(local)
+            _raw = row.get("video_url")
+            url = str(_raw).strip() if _raw and str(_raw) not in ("nan", "", "None") else None
             if url:
                 with st.spinner(f"Downloading Rollout {label} from HuggingFace..."):
                     r = requests.get(url, timeout=120)
