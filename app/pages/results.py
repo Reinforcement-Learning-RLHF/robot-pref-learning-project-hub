@@ -16,8 +16,8 @@ REGISTRY_CSV = ROOT / "data" / "rollout_registry.csv"
 
 @st.cache_data
 def load_registry() -> pd.DataFrame:
-    df = pd.read_csv(REGISTRY_CSV, encoding="cp1252")
-    df["success_label"] = df["success_label"].astype(str).str.lower() == "true"
+    df = pd.read_csv(REGISTRY_CSV, encoding="utf-8-sig")
+    df["success_label"] = df["success_label"].astype(str).str.lower().map({"true": True, "false": False}).fillna(False)
     return df
 
 
