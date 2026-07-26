@@ -12,8 +12,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from google import genai
-from langchain_google_genai import ChatGoogleGenerativeAI
-from langchain_core.messages import HumanMessage
+from google.genai import types
 from pydantic import BaseModel, Field
 
 PROMPTS_DIR = Path(__file__).resolve().parents[2] / "prompts"
@@ -73,18 +72,22 @@ def label_pair(
     vf1 = _wait_for_active(upload_client, vf1)
     vf2 = _wait_for_active(upload_client, vf2)
 
-    llm = ChatGoogleGenerativeAI(model=model, google_api_key=api_key)
-    structured_llm = llm.with_structured_output(PreferenceLabel)
-
-    def _query(first, second):
-        message = HumanMessage(content=[
-            {"type": "text", "text": "Video 1:"},
-            {"type": "media", "mime_type": "video/mp4", "file_uri": first.uri},
-            {"type": "text", "text": "Video 2:"},
-            {"type": "media", "mime_type": "video/mp4", "file_uri": second.uri},
-            {"type": "text", "text": prompt},
-        ])
-        return structured_llm.invoke([message])
+    def _query(first, second) -> PreferenceLabel:
+        response = upload_client.models.generate_content(
+            model=model,
+            contents=[
+                types.Part.from_text(text="Video 1:"),
+                types.Part.from_uri(file_uri=first.uri, mime_type="video/mp4"),
+                types.Part.from_text(text="Video 2:"),
+                types.Part.from_uri(file_uri=second.uri, mime_type="video/mp4"),
+                types.Part.from_text(text=prompt),
+            ],
+            config=types.GenerateContentConfig(
+                response_mime_type="application/json",
+                response_schema=PreferenceLabel,
+            ),
+        )
+        return response.parsed
 
     result_ab = _query(vf1, vf2)
     result_ba = _query(vf2, vf1)
