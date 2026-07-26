@@ -42,7 +42,7 @@ def main() -> None:
     c4.metric("B wins", b_wins)
 
     st.divider()
-    st.dataframe(df, use_container_width=True, hide_index=True)
+    st.dataframe(df, width="stretch", hide_index=True)
 
 
 main()

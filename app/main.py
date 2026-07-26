@@ -57,10 +57,11 @@ hr { border-color: rgba(124, 111, 224, 0.2) !important; margin: 1.5rem 0; }
 """, unsafe_allow_html=True)
 
 pg = st.navigation([
-    st.Page("pages/home.py",       title="Home",     icon="🏠", default=True),
-    st.Page("pages/scripted.py",   title="Scripted", icon="🔧"),
-    st.Page("pages/human.py",      title="Human",    icon="🏷️"),
-    st.Page("pages/vlm_viewer.py", title="VLM",      icon="🤖"),
-    st.Page("pages/settings.py",   title="Settings", icon="⚙️"),
+    st.Page("pages/home.py",          title="Home",     icon="🏠", default=True),
+    st.Page("pages/scripted.py",      title="Scripted", icon="🔧"),
+    st.Page("pages/human.py",         title="Human",    icon="🏷️"),
+    st.Page("pages/vlm_viewer.py",    title="VLM",      icon="🤖"),
+    st.Page("pages/hdf5_explorer.py", title="HDF5",     icon="🗂️"),
+    st.Page("pages/settings.py",      title="Settings", icon="⚙️"),
 ])
 pg.run()

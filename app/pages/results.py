@@ -71,7 +71,7 @@ def main() -> None:
         display["preference"] = display["label"].map(label_map)
         st.dataframe(
             display[["traj_A", "traj_B", "preference", "timestamp"]],
-            use_container_width=True,
+            width="stretch",
         )
         st.download_button(
             "Download human_pairs.csv",

@@ -240,19 +240,19 @@ def on_label(label: float) -> None:
 
 
 with btn_a:
-    if st.button("👈  A is better", use_container_width=True, type="primary"):
+    if st.button("👈  A is better", width="stretch", type="primary"):
         on_label(1.0); st.rerun()
 
 with btn_tie:
-    if st.button("🤝  Tie", use_container_width=True):
+    if st.button("🤝  Tie", width="stretch"):
         on_label(0.5); st.rerun()
 
 with btn_b:
-    if st.button("B is better  👉", use_container_width=True, type="primary"):
+    if st.button("B is better  👉", width="stretch", type="primary"):
         on_label(0.0); st.rerun()
 
 with skip_col:
-    if st.button("Skip →", use_container_width=True, help="Skip without labeling"):
+    if st.button("Skip →", width="stretch", help="Skip without labeling"):
         del st.session_state.row_a
         del st.session_state.row_b
         st.rerun()

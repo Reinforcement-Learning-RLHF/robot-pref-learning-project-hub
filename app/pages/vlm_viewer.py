@@ -64,6 +64,7 @@ h4 { color: #9D98E8 !important; font-weight: 600 !important; }
     box-shadow: 0 4px 15px rgba(124, 111, 224, 0.35);
 }
 hr { border-color: rgba(124, 111, 224, 0.2) !important; margin: 1.5rem 0; }
+[data-testid="stVideo"] video { max-width: 480px; width: 100%; display: block; margin: 0 auto; }
 .score-badge {
     display: inline-block;
     padding: 0.2rem 0.7rem;
@@ -98,7 +99,7 @@ def _hf_token() -> str | None:
 
 # ── Data helpers ──────────────────────────────────────────────────────────────
 
-@st.cache_data
+@st.cache_data(ttl=60)
 def load_registry() -> pd.DataFrame:
     df = pd.read_csv(REGISTRY_CSV, encoding="utf-8-sig")
     df["success_label"] = df["success_label"].astype(str).str.lower() == "true"
@@ -313,7 +314,7 @@ def tab_live(registry: pd.DataFrame, api_key: str, model: str) -> None:
     if not api_key:
         st.warning("Go to **Settings** to add your Gemini API key before scoring.")
 
-    if st.button("Run Gemini", type="primary", use_container_width=True, disabled=not api_key):
+    if st.button("Run Gemini", type="primary", width="stretch", disabled=not api_key):
         row_a = registry[registry["rollout_id"] == rollout_a].iloc[0]
         row_b = registry[registry["rollout_id"] == rollout_b].iloc[0]
 
@@ -367,7 +368,7 @@ def tab_live(registry: pd.DataFrame, api_key: str, model: str) -> None:
         result = st.session_state["live_result"]
         ra, rb, mdl, pv = st.session_state["live_pair"]
         st.write("")
-        if st.button("Save to vlm_pairs", use_container_width=True):
+        if st.button("Save to vlm_pairs", width="stretch"):
             save_pair({
                 "traj_A": ra, "traj_B": rb,
                 "label": result["score"],
@@ -389,23 +390,37 @@ def tab_live(registry: pd.DataFrame, api_key: str, model: str) -> None:
 # ── Sidebar ───────────────────────────────────────────────────────────────────
 
 def render_sidebar() -> None:
-    pass
+    with st.sidebar:
+        if st.button("Refresh rollouts", icon="🔄"):
+            load_registry.clear()
+            st.rerun()
 
 
 # ── Entry point ───────────────────────────────────────────────────────────────
 
+def _resolve_api_key() -> str:
+    if "gemini_api_key" not in st.session_state or not st.session_state["gemini_api_key"]:
+        key = os.environ.get("GOOGLE_API_KEY", "")
+        if not key:
+            try:
+                key = st.secrets.get("GOOGLE_API_KEY", "")
+            except Exception:
+                pass
+        st.session_state["gemini_api_key"] = key
+    return st.session_state["gemini_api_key"]
+
+
 def main() -> None:
     render_sidebar()
 
-    # API key and model come from Settings page via session_state
-    api_key = st.session_state.get("gemini_api_key", "")
-    model = st.session_state.get("gemini_model", "gemini-2.5-flash")
+    api_key = _resolve_api_key()
+    model = st.session_state.get("gemini_model", "gemini-3.6-flash")
 
     st.title("VLM Preference Viewer")
     st.caption("Explore stored Gemini labels or score a new pair live.")
 
     if not api_key:
-        st.info("Go to **Settings** to add your Gemini API key before using the Live tab.", icon="⚙️")
+        st.info("Add your Gemini API key in **Settings** or set `GOOGLE_API_KEY` in your `.env` file.", icon="⚙️")
 
     registry = load_registry()
     browse_tab, live_tab = st.tabs(["Browse Results", "Live Gemini"])

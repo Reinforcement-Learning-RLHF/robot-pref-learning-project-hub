@@ -28,7 +28,18 @@ hr { border-color: rgba(124, 111, 224, 0.2) !important; margin: 1.5rem 0; }
 </style>
 """
 
-MODELS = ["gemini-2.5-flash", "gemini-2.5-pro", "gemini-2.0-flash"]
+MODELS = [
+    "gemini-3.6-flash",
+    "gemini-3.5-flash",
+    "gemini-3.5-flash-lite",
+    "gemini-3.1-flash-lite",
+    "gemini-3.1-pro-preview",
+    "gemini-2.5-flash",
+    "gemini-2.5-pro",
+    "gemini-2.5-flash-lite",
+    "gemini-2.5-flash-latest",
+    "gemini-2.0-flash",
+]
 
 
 def _init_session_defaults() -> None:

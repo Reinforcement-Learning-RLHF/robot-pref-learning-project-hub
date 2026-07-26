@@ -1,23 +1,9 @@
-# VLM inference - Gemini
+# Gemini VLM
 google-genai
-langchain-google-genai
-langchain-core
 python-dotenv
 
-# VLM inference - HuggingFace (local)
-torch
-torchvision
-git+https://github.com/huggingface/transformers.git
-accelerate
-safetensors
-sentencepiece
-bitsandbytes
-pydantic
-
-# HuggingFace data (LeRobot dataset download)
-datasets
+# HuggingFace
 huggingface-hub
-hf_transfer
 pandas
 
 # Streamlit app
@@ -26,22 +12,9 @@ gspread
 google-auth
 requests
 
-# Video and data utilities
-opencv-python
+# Data utilities
 numpy
 pillow
-av
-torchcodec
-ruptures
 tqdm
 h5py
-
-# Robosuite / sim (archive only)
-jinja2
-empy
-
-# Streamlit app
-streamlit
-gspread
-google-auth
-requests
+pydantic
